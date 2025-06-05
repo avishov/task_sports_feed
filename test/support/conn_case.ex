@@ -31,8 +31,7 @@ defmodule TaskSportsFeedWeb.ConnCase do
     end
   end
 
-  setup tags do
-    TaskSportsFeed.DataCase.setup_sandbox(tags)
+  setup _tags do
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

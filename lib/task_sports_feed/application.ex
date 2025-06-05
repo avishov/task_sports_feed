@@ -9,7 +9,6 @@ defmodule TaskSportsFeed.Application do
   def start(_type, _args) do
     children = [
       TaskSportsFeedWeb.Telemetry,
-      TaskSportsFeed.Repo,
       {DNSCluster, query: Application.get_env(:task_sports_feed, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: TaskSportsFeed.PubSub},
       # Start the Finch HTTP client for sending emails

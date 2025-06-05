@@ -8,7 +8,6 @@
 import Config
 
 config :task_sports_feed,
-  ecto_repos: [TaskSportsFeed.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
@@ -20,7 +19,7 @@ config :task_sports_feed, TaskSportsFeedWeb.Endpoint,
     layout: false
   ],
   pubsub_server: TaskSportsFeed.PubSub,
-  live_view: [signing_salt: "WSdbhMRt"]
+  live_view: [signing_salt: "vGWICXJM"]
 
 # Configures the mailer
 #

@@ -7,7 +7,7 @@ defmodule TaskSportsFeedWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_task_sports_feed_key",
-    signing_salt: "ZHcXBt/S",
+    signing_salt: "qvyRJ5PN",
     same_site: "Lax"
   ]
 
@@ -31,7 +31,6 @@ defmodule TaskSportsFeedWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :task_sports_feed
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,

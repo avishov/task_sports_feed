@@ -1,53 +1,18 @@
 # TaskSportsFeed
 
-**TODO: Add description**
+To start your Phoenix server:
 
-## Installation
+  * Run `mix setup` to install and setup dependencies
+  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `task_sports_feed` to your list of dependencies in `mix.exs`:
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-```elixir
-def deps do
-  [
-    {:task_sports_feed, "~> 0.1.0"}
-  ]
-end
-```
+Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/task_sports_feed>.
+## Learn more
 
-
-
-You are required to build a tiny application that ingests a list of 5000 sport updates from 10 unique matches in `updates.json`. Each update will be in the format;
-
-```json
-{
-  "match_id": 1,
-  "delay": 500,
-  "status": "active",
-  "name": "Arsenal vs Manchester United",
-  "crash": true
-}
-```
-
-where:
-- `match_id` is an integer ID for the match.
-- `delay` is the time period in millisecond to wait before processing the current update. (When the update is received, the system should wait for `delay`ms before processing it.)
-- `status` is the match's current status.
-- `name` is the match name.
-- `crash` is a boolean value. If `true`, processing the current update should raise an exception and move on to the next update.
-
-All 10 matches should be rendered on a web-based UI showing the `name` and `status`. The `status` should be updated in real time after each update for the match is processed.
-
-A few things to note:
-- No external database should be used. If persistence is needed, it should be done entirely in memory.
-- Order is very important. Messages for each match should be processed in the order it was defined in the `json` file. For example, the last status for match `23499706` should be `paused`.
-- We're very much interested in how you use concurrency.
-- We want to see how you test the solution.
-- The application does not need to be deployed on a remote server, but appropriate instructions on how to run it locally is essential.
-- We prefer that the task is done in Elixir, but it can also be done in any language you're comfortable with.
-
-Good luck!
+  * Official website: https://www.phoenixframework.org/
+  * Guides: https://hexdocs.pm/phoenix/overview.html
+  * Docs: https://hexdocs.pm/phoenix
+  * Forum: https://elixirforum.com/c/phoenix-forum
+  * Source: https://github.com/phoenixframework/phoenix

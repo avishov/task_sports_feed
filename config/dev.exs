@@ -1,15 +1,5 @@
 import Config
 
-# Configure your database
-config :task_sports_feed, TaskSportsFeed.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "task_sports_feed_dev",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
-
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -23,7 +13,7 @@ config :task_sports_feed, TaskSportsFeedWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "n3y8SYcvbd6EwEEheogX0AcVpGsV4vW5CjnQSbMkoTUlFujfvFKR6hT4IZRokLD8",
+  secret_key_base: "9hcIg+eVwwNghaEDac00/V6xdfggOpLAf3frZpN8JnaIH0yUS/M8TB5HTULt5GPc",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:task_sports_feed, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:task_sports_feed, ~w(--watch)]}
