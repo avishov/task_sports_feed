@@ -1,10 +1,3 @@
-# This file is responsible for configuring your application
-# and its dependencies with the aid of the Config module.
-#
-# This configuration file is loaded before any dependency and
-# is restricted to this project.
-
-# General application configuration
 import Config
 
 config :task_sports_feed,
@@ -20,15 +13,6 @@ config :task_sports_feed, TaskSportsFeedWeb.Endpoint,
   ],
   pubsub_server: TaskSportsFeed.PubSub,
   live_view: [signing_salt: "vGWICXJM"]
-
-# Configures the mailer
-#
-# By default it uses the "Local" adapter which stores the emails
-# locally. You can see the emails in your browser, at "/dev/mailbox".
-#
-# For production it's recommended to configure a different adapter
-# at the `config/runtime.exs`.
-config :task_sports_feed, TaskSportsFeed.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,
