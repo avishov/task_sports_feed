@@ -41,13 +41,4 @@ defmodule TaskSportsFeed.Dispatcher do
         {:error, "File couldn't be read, #{inspect(error)}"}
     end
   end
-
-  def calc_final(file \\ "priv/updates.json") do
-    Utils.read_file!(file)
-    |> Enum.reduce(%{}, fn update, statuses ->
-      match_id = update["match_id"]
-
-      if update["crash"], do: statuses, else: Map.put(statuses, match_id, update["status"])
-    end)
-  end
 end

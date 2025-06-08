@@ -33,6 +33,13 @@ defmodule TaskSportsFeed.MatchWorker do
   end
 
   @doc """
+  Public function to get current state of a match worker.
+  """
+  def get_state(match_id) do
+    GenServer.call(via(match_id), :get_state)
+  end
+
+  @doc """
     Sets the initial state of the GenServer.
     Each GS worker starts with the following values:
     - match_id: the same match_id that the GS is registered under,
@@ -58,6 +65,12 @@ defmodule TaskSportsFeed.MatchWorker do
 
   def handle_cast(:done_processing, state), do: maybe_process(%{state | processing: false})
 
+  # Returns the current state for debugging/testing purposes.
+
+  def handle_call(:get_state, _from, state) do
+    {:reply, state, state}
+  end
+
   # Handles the message from the GS that it should
   # process the next match update from the queue.
   # If there is an entry in the queue, retrieves it
@@ -70,7 +83,7 @@ defmodule TaskSportsFeed.MatchWorker do
     case :queue.out(state.queue) do
       {{:value, update}, rest} ->
         # Delay inside GenServer to preserve order
-        Process.sleep(trunc(update["delay"] / 100))
+        Process.sleep(update["delay"])
 
         if update["crash"] do
           Logger.error("Match #{update["match_id"]} crashed: Simulated crash")
