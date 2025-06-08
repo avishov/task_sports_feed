@@ -4,6 +4,13 @@ defmodule TaskSportsFeed.Utils do
     rest of the applications.
   """
 
+  # callbacks for Mox
+  @callback read_file(String.t()) ::
+              {:ok, term()} | {:error, atom()} | {:error, Jason.DecodeError.t()}
+  @callback read_file!(String.t()) :: term()
+  @callback load_match_ids(String.t()) ::
+              {:ok, list()} | {:error, atom()} | {:error, Jason.DecodeError.t()}
+
   @doc """
     Reads the file under the passed path (or if
     no path is passed, reads the default file
@@ -14,7 +21,7 @@ defmodule TaskSportsFeed.Utils do
   Returns `{:error, posix()}` for fire-reading errors or
   `{:error, Jason.DecodeError.t()}` for JSON decoding errors.
   """
-  def read_file(file \\ "priv/updates.json") do
+  def read_file(file) do
     with {:ok, binary} <- File.read(file) do
       Jason.decode(binary)
     end
@@ -31,7 +38,7 @@ defmodule TaskSportsFeed.Utils do
   `Jason.DecodeError.t()` for errors while decoding the JSON
   in the file.
   """
-  def read_file!(file \\ "priv/updates.json"),
+  def read_file!(file),
     do:
       file
       |> File.read!()
@@ -45,7 +52,7 @@ defmodule TaskSportsFeed.Utils do
   Returns `{:error, posix()}` for fire-reading errors or
   `{:error, Jason.DecodeError.t()}` for JSON decoding errors.
   """
-  def load_match_ids(file \\ "priv/updates.json") do
+  def load_match_ids(file) do
     with {:ok, decoded_json} <- read_file(file),
          match_ids <- Enum.map(decoded_json, & &1["match_id"]),
          unique_match_ids <- Enum.uniq(match_ids) do

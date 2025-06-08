@@ -1,7 +1,12 @@
 defmodule TaskSportsFeed.UtilsTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
-  alias TaskSportsFeed.Utils
+  alias TaskSportsFeed.UtilsAPI, as: Utils
+
+  setup do
+    Application.get_env(:task_sports_feed, :utils, TaskSportsFeed.Utils)
+    :ok
+  end
 
   describe "TaskSportsFeed.Utils.read_file/1" do
     test "reads default file when no path is passed" do

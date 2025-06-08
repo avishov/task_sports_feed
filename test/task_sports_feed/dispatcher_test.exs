@@ -1,5 +1,5 @@
 defmodule TaskSportsFeed.DispatcherTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   alias TaskSportsFeed.Dispatcher
 

@@ -17,7 +17,7 @@ defmodule TaskSportsFeedWeb.MatchLive do
   Returns `{:ok, socket}`.
   """
   def mount(_params, _session, socket) do
-    case TaskSportsFeed.Utils.load_match_ids() do
+    case TaskSportsFeed.UtilsAPI.load_match_ids() do
       {:ok, match_ids} ->
         if connected?(socket) do
           Enum.each(match_ids, fn id ->

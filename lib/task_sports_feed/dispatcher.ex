@@ -1,5 +1,5 @@
 defmodule TaskSportsFeed.Dispatcher do
-  alias TaskSportsFeed.Utils
+  alias TaskSportsFeed.UtilsAPI, as: Utils
   require Logger
 
   @moduledoc """

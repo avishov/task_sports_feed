@@ -67,6 +67,71 @@ defmodule TaskSportsFeed.MatchWorkerTest do
     end
   end
 
+  describe "data processing" do
+    test "emits a message on the matching PubSub" do
+      socket_match_id = 123
+      {:ok, _pid} = MatchWorker.start_link(socket_match_id)
+      topic = "match:#{socket_match_id}"
+      :ok = Phoenix.PubSub.subscribe(TaskSportsFeed.PubSub, topic)
+
+      MatchWorker.enqueue_update(socket_match_id, %{
+        "match_id" => socket_match_id,
+        "name" => "Juventus vs Napoli",
+        "status" => "completed",
+        "crash" => false,
+        "delay" => 688
+      })
+
+      assert_receive {:status_update,
+                      %{
+                        match_id: ^socket_match_id,
+                        name: "Juventus vs Napoli",
+                        status: "completed"
+                      }},
+                     2000
+    end
+
+    test "doesn't emit a message on the PubSub for simulated crashes" do
+      socket_match_id = 123
+      {:ok, _pid} = MatchWorker.start_link(socket_match_id)
+      topic = "match:#{socket_match_id}"
+      :ok = Phoenix.PubSub.subscribe(TaskSportsFeed.PubSub, topic)
+
+      MatchWorker.enqueue_update(socket_match_id, %{
+        "match_id" => socket_match_id,
+        "name" => "Juventus vs Napoli",
+        "status" => "completed",
+        "crash" => true,
+        "delay" => 688
+      })
+
+      refute_receive {:status_update,
+                      %{
+                        match_id: ^socket_match_id,
+                        name: "Juventus vs Napoli",
+                        status: "completed"
+                      }},
+                     2000
+    end
+
+    test "doesn't emit a message on the PubSub if the queue is empty", %{pid: pid} do
+      socket_match_id = 123
+      {:ok, _pid} = MatchWorker.start_link(socket_match_id)
+      topic = "match:#{socket_match_id}"
+      :ok = Phoenix.PubSub.subscribe(TaskSportsFeed.PubSub, topic)
+
+      send(pid, :process_next)
+
+      refute_receive {:status_update,
+                      %{
+                        match_id: ^socket_match_id,
+                        name: "Juventus vs Napoli",
+                        status: "completed"
+                      }},
+                     2000
+    end
+  end
+
   describe "fault tolerance" do
     test "handles unexpected messages gracefully", %{pid: pid} do
       send(pid, :unexpected)
