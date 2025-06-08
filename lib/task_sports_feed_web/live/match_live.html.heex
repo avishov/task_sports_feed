@@ -1,0 +1,35 @@
+<button
+  phx-click="start_updates"
+  disabled={@update_started}
+  type="button"
+  id="start_updates"
+  class={[
+    "focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800",
+    if(@update_started, do: "cursor-not-allowed")
+  ]}
+>
+  Start updates
+</button>
+<br />
+<br />
+
+<h1 class="text-4xl font-extrabold">Live Match Status</h1>
+<br />
+<table class="w-full text-sm text-left rtl:text-right text-gray-500">
+  <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+    <th scope="col" class="px-6 py-3">Match ID</th>
+    <th scope="col" class="px-5 py-3">Match name</th>
+    <th scope="col" class="px-8 py-3">Status</th>
+  </thead>
+  <tbody>
+    <%= for {_, match} <- @matches do %>
+      <tr class="bg-white border-b border-gray-200">
+        <td class="px-6 py-4">{match.match_id}</td>
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+          {match.name}
+        </th>
+        <td class="px-6 py-4">{match.status}</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

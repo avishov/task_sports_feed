@@ -7,12 +7,6 @@ config :task_sports_feed, TaskSportsFeedWeb.Endpoint,
   secret_key_base: "jZKfH/PIzoSDiFHOFfo7ReXN3ybcTU8U51d1W1y/YmLHvKkhZ8e4dgvqF0uaWSBj",
   server: false
 
-# In test we don't send emails
-config :task_sports_feed, TaskSportsFeed.Mailer, adapter: Swoosh.Adapters.Test
-
-# Disable swoosh api client as it is only required for production adapters
-config :swoosh, :api_client, false
-
 # Print only warnings and errors during test
 config :logger, level: :warning
 
